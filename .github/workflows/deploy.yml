@@ -18,7 +18,8 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    # En este repositorio de vista previa la rama que publica es esta, no main.
+    branches: [preview/github-pages]
   # Para poder relanzar desde la pestaña Actions sin tener que empujar nada.
   workflow_dispatch:
 
@@ -55,7 +56,11 @@ jobs:
       # Incluye `astro check`: un error de tipos no compila.
       - run: npm run build
         env:
-          PUBLIC_SITE_URL: https://wrailabs.com
+          # Vista previa del rebranding: se publica en la raíz del sitio de usuario
+          # de GitHub Pages, sin dominio propio. public/CNAME no existe en esta rama
+          # a propósito: un CNAME con wrailabs.com aquí intentaría robarle el
+          # dominio al repositorio de producción.
+          PUBLIC_SITE_URL: https://wrabbitlabs.github.io
           # La dirección del servicio de formularios. Se define como variable
           # del repositorio en Settings → Secrets and variables → Actions →
           # Variables. Vacía, /contact enseña los canales directos en vez de un
