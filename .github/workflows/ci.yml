@@ -40,5 +40,6 @@ jobs:
         run: |
           test ! -d dist/server
           test -f dist/index.html
-          test -f dist/CNAME
+          # Vista previa: aquí el dominio de producción NO debe declararse.
+          test ! -f dist/CNAME
           echo "archivos HTML: $(find dist -name '*.html' | wc -l)"
